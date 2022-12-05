@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
 import android.widget.Chronometer
+import com.example.stopwatch.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    lateinit var  binding : ActivityMainBinding
     lateinit var stopWatch : Chronometer
     var running = false
     var offset:Long =0
@@ -17,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         stopWatch = findViewById(R.id.stopWatch)
 
@@ -33,8 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val startButton = findViewById<Button>(R.id.start)
-        startButton.setOnClickListener {
+        binding.start.setOnClickListener {
             if (!running){
                 setBaseTime()
                 stopWatch.start();
@@ -42,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val pauseButton = findViewById<Button>(R.id.pause)
-        pauseButton.setOnClickListener {
+
+        binding.pause.setOnClickListener {
             if (running){
                 saveOffset()
                 stopWatch.stop()
@@ -51,8 +53,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val resetButton = findViewById<Button>(R.id.reset)
-        resetButton.setOnClickListener {
+
+        binding.reset.setOnClickListener {
             offset =0;
             setBaseTime()
         }
